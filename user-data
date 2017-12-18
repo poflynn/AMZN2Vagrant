@@ -1,0 +1,35 @@
+#cloud-config
+users:
+  - default
+  - name: vagrant
+    groups: wheel
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    plain_text_passwd: vagrant
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
+    lock_passwd: false
+
+chpasswd:
+  list: |
+    root:vagrant
+  expire: False
+
+
+# Required so we can install VirtualBox Guest Additions later
+packages:
+  - kernel-devel
+  - kernel-headers
+  - gcc
+  - make
+  - perl
+  - bzip2
+  - mod_ssl
+
+
+runcmd:
+
+  # Stop cloud-init from randomizing root password on startup
+  - sed -i 's/.*root:RANDOM/#&/g' /etc/cloud/cloud.cfg.d/99_onprem.cfg
+
+  # Make it look like RedHat
+  - ln -s /etc/system-release /etc/redhat-release
