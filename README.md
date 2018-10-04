@@ -29,7 +29,7 @@ Log in to the virtual machine as root/vagrant
 
 From the VirtualBox menu select Devices->Insert Guest Additions CD Image
 ```bash
-mount -r -t iso 9660 /dev/cdrom/media
+mount -r -t iso9660 /dev/cdrom /media
 cd /media
 ./VBoxLinuxAdditions.run
 systemctl enable vboxadd.service
@@ -39,7 +39,7 @@ Ignore tainted kernel message
 #### Post processing
 ```bash
 #Delete Bash command history
-export HISTSIZE = 0
+export HISTSIZE=0
 #Delete cache of yum
 yum clean all
 rm -rf /var/cache/yum
