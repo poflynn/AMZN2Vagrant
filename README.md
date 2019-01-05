@@ -39,7 +39,15 @@ something like "Use an existing virtual hard disk file")
 * Inside the terminal, we must now mount the inserted CD (I manually typed these commands into
 the VirtualBox terminal, suggestions of a better approach are welcome)
 ```bash
+sudo yum -y update
+
+# next line suggested at https://stackoverflow.com/a/37706087/1241791
+# to solve shared folder issue later on
+sudo yum -y install kernel-headers kernel-devel
+
+#mount the inserted guest additions CD
 mount -r -t iso9660 /dev/cdrom /media
+
 cd /media
 ./VBoxLinuxAdditions.run
 systemctl enable vboxadd.service
@@ -50,9 +58,11 @@ Ignore tainted kernel message
 ```bash
 #Delete Bash command history
 export HISTSIZE=0
+
 #Delete cache of yum
 yum clean all
 rm -rf /var/cache/yum
+
 #Optimize the area of the virtual hard disk
 dd if=/dev/zero of=/ZERO bs=1M
 rm -f /ZERO
