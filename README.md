@@ -20,7 +20,7 @@ mkisofs -output seed.iso -volid cidata -joliet -rock user-data meta-data
 
 ### Creating VM in VirtualBox
 
-* Create new VM with the followign criteria
+* Create new VM with the following criteria
   - name: AMZN
   - type: linux
   - version: Other Linux 64bit
@@ -54,11 +54,10 @@ export HISTSIZE=0
 yum clean all
 rm -rf /var/cache/yum
 #Optimize the area of the virtual hard disk
-dd if=/dev/zero of =/ZERO bs=1M
+dd if=/dev/zero of=/ZERO bs=1M
 rm -f /ZERO
 shutdown -h now
 ```
-Update January 2019: (Sam Anthony) I could not seem to get the `dd` command to work.
 
 #### Create Base Box from virtual machine
 
